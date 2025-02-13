@@ -1,5 +1,5 @@
 
-def food_macros(food_data):
+def get_food_data(food_data):
     """
     Filter the essential information and ignore unnecessary data
     """
@@ -12,11 +12,11 @@ def food_macros(food_data):
         filtered_data[result] = {
                 'Name': '',
                 'Protein': 0,
-                'serving_size_unit': None,
-                'serving_size': 0,
                 'Total lipid (fat)': 0,
                 'Carbohydrate, by difference': 0,
                 'Energy': 0,
+                'serving_size_unit': None,
+                'serving_size': 0,
             }
 
         food_name = food.get('description', 'unknown food')

@@ -1,9 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from utils.food_macros import food_macros
+from utils.food_data import get_food_data
 from utils.food_api import search_food
 from rest_framework import status
-
 
 
 class SearchFoodAPIView(APIView):
@@ -21,7 +20,7 @@ class SearchFoodAPIView(APIView):
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
-        results = food_macros(food_data)
+        results = get_food_data(food_data)
 
         return Response(results,status=status.HTTP_200_OK)
 

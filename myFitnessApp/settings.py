@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 
 PROJECT_APPS = [
     'myFitnessApp.food',
+    'myFitnessApp.accounts',
+
 ]
 
 INSTALLED_APPS = [
