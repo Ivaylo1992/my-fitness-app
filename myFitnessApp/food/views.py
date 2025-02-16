@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from utils.food_data import get_food_data
 from utils.food_api import search_food
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
+
 
 
 class SearchFoodAPIView(APIView):
@@ -22,7 +24,9 @@ class SearchFoodAPIView(APIView):
 
         results = get_food_data(food_data)
 
-        return Response(results,status=status.HTTP_200_OK)
+        paginator = PageNumberPagination()
+        paginated_results = paginator.paginate_queryset(results, request)
+        return paginator.get_paginated_response(paginated_results)
 
 
 

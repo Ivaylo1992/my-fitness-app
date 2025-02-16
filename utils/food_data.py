@@ -35,4 +35,4 @@ def get_food_data(food_data):
                 filtered_data[result][nutrient_name] = nutrient_value
             
 
-    return filtered_data
+    return list(filtered_data.values())
