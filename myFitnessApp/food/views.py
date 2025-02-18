@@ -9,6 +9,7 @@ from utils.food_api import search_food
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import generics
+from rest_framework.viewsets import ModelViewSet
 
 
 
@@ -48,6 +49,6 @@ class SearchFoodAPIView(APIView):
 
 
 
-class FoodAPIView(generics.ListCreateAPIView):
-    serializer_class = FoodSerializer
+class FoodViewSet(ModelViewSet):
     queryset = Food.objects.all()
+    serializer_class = FoodSerializer
