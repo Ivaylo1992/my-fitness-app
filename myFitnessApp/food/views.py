@@ -2,10 +2,13 @@ from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework.response import Response
+from myFitnessApp.food.models import Food
+from myFitnessApp.food.serializers import FoodSerializer
 from utils.food_data import get_food_data
 from utils.food_api import search_food
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
+from rest_framework import generics
 
 
 
@@ -45,3 +48,6 @@ class SearchFoodAPIView(APIView):
 
 
 
+class FoodAPIView(generics.ListCreateAPIView):
+    serializer_class = FoodSerializer
+    queryset = Food.objects.all()
