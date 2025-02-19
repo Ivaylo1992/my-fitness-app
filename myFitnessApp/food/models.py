@@ -8,26 +8,13 @@ class Food(models.Model):
         max_length=FOOD_NAME_MAX_LENGTH
     )
 
-    protein = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-    )
+    protein = models.FloatField()
 
-    carbohydrates = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-    )
+    carbohydrates = models.FloatField()
 
-    fats = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-    )
+    fats = models.FloatField()
 
-    calories = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-        editable=False,
-    )
+    calories = models.FloatField()
 
     serving_size_unit = models.CharField(
         max_length=SERVING_SIZE_UNIT_MAX_LENGTH
