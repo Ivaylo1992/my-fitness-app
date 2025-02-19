@@ -13,4 +13,6 @@ class FoodSerializer(serializers.ModelSerializer):
             'serving_size',
             'serving_size_unit',
             'calories'
-            ) 
+            )
+        
+        read_only_fields = ('calories', )
