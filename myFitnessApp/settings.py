@@ -51,7 +51,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'dj_rest_auth',
 ] + PROJECT_APPS
+
+
 
 USDA_API_KEY = config('USDA_API_KEY')
 
@@ -68,6 +71,13 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "SIGNING_KEY": config('SECRET_KEY'),
     "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'my-app-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token',
+    'TOKEN_MODEL': None,
 }
 
 SWAGGER_SETTINGS = {
@@ -88,6 +98,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 
