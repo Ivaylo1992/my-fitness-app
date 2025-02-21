@@ -15,21 +15,21 @@ class Food(models.Model):
     protein = models.FloatField(
         validators=(
             MinValueValidator(0),
-            MaxValueValidator(10)
+            MaxValueValidator(100)
         )
     )
 
     carbohydrates = models.FloatField(
         validators=(
             MinValueValidator(0),
-            MaxValueValidator(10)
+            MaxValueValidator(100)
         )
     )
 
     fats = models.FloatField(
         validators=(
             MinValueValidator(0),
-            MaxValueValidator(10)
+            MaxValueValidator(100)
         )
     )
 
@@ -49,19 +49,30 @@ class Food(models.Model):
         return self.food_name
 
 
-# class FoodLog(models.Model):
-#     food = models.ForeignKey(
-#         to=Food,
-#         on_delete=models.DO_NOTHING,
-#         related_name='logs',
-#     )
+class FoodLog(models.Model):
+    food = models.ForeignKey(
+        to=Food,
+        on_delete=models.DO_NOTHING,
+        related_name='logs',
+    )
 
-#     user = models.ForeignKey(
-#         to=UserModel,
-#         on_delete=models.CASCADE,
-#         related_name='logs'
-#         )
+    user = models.ForeignKey(
+        to=UserModel,
+        on_delete=models.CASCADE,
+        related_name='logs'
+        )
 
-#     quantity = models.FloatField(
-#         validators=
-#     )
+    quantity = models.FloatField(
+        validators=(
+            MinValueValidator(0),
+            MaxValueValidator(10),
+        )
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+    )
