@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 UserModel = get_user_model()
 
@@ -13,15 +13,24 @@ class Food(models.Model):
     )
 
     protein = models.FloatField(
-        validators=(MinValueValidator(0) ,)
+        validators=(
+            MinValueValidator(0),
+            MaxValueValidator(10)
+        )
     )
 
     carbohydrates = models.FloatField(
-        validators=(MinValueValidator(0) ,)
+        validators=(
+            MinValueValidator(0),
+            MaxValueValidator(10)
+        )
     )
 
     fats = models.FloatField(
-        validators=(MinValueValidator(0) ,)
+        validators=(
+            MinValueValidator(0),
+            MaxValueValidator(10)
+        )
     )
 
     calories = models.FloatField()
@@ -54,5 +63,5 @@ class Food(models.Model):
 #         )
 
 #     quantity = models.FloatField(
-        
+#         validators=
 #     )
