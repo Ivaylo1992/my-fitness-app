@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework.response import Response
-from myFitnessApp.food.models import Food
-from myFitnessApp.food.serializers import FoodSerializer
+from myFitnessApp.food.models import Food, FoodLog
+from myFitnessApp.food.serializers import FoodLogSerializer, FoodSerializer
 from utils.food_data import get_food_data
 from utils.food_api import search_food
 from rest_framework import status
@@ -54,3 +54,21 @@ class FoodViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
+
+
+# class FoodLogViewSet(ModelViewSet):
+#     permission_classes = [IsAuthenticated]
+#     queryset = FoodLog.objects.all()
+#     serializer_class = FoodLogSerializer
+
+#     def perform_create(self, serializer):
+#         return serializer.save(user=self.request.user)
+
+
+class FoodLogListCreate(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = FoodLogSerializer
+    queryset = FoodLog.objects.all()
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)

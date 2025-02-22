@@ -1,6 +1,9 @@
 from rest_framework import serializers
 
-from myFitnessApp.food.models import Food
+from myFitnessApp.food.models import Food, FoodLog
+
+
+
 
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,3 +19,12 @@ class FoodSerializer(serializers.ModelSerializer):
             )
         
         read_only_fields = ('calories', )
+
+
+class FoodLogSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    food = serializers.PrimaryKeyRelatedField(queryset=Food.objects.all())
+
+    class Meta:
+        model = FoodLog
+        fields = ('food', 'quantity', 'user')
