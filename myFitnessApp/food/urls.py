@@ -10,4 +10,6 @@ router.register(r'', views.FoodViewSet, basename='food')
 urlpatterns = [
     path('search/', views.SearchFoodAPIView.as_view(), name='search_food'),
     path('food_log/', views.FoodLogListCreate.as_view(), name='food_log_list_create'),
+    path('food_log/<int:pk>/',
+          views.FoodLogRetrieveUpdateDestroy.as_view(), name='food_log_retrieve_update_destroy'),
 ] + router.urls

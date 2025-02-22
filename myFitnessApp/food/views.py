@@ -72,3 +72,9 @@ class FoodLogListCreate(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+
+
+class FoodLogRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = FoodLogSerializer
+    queryset = FoodLog.objects.all()
