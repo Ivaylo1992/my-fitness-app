@@ -1,6 +1,4 @@
 from rest_framework.views import APIView
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
 from rest_framework.response import Response
 from myFitnessApp.food.models import Food, FoodLog
 from myFitnessApp.food.serializers import FoodLogSerializer, FoodSerializer
@@ -13,21 +11,7 @@ from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 
 
-
 class SearchFoodAPIView(APIView):
-    @swagger_auto_schema(
-        operation_summary = 'Search food data from USDA Food API',
-        operation_description='Search food data from USDA Food API',
-        manual_parameters=[
-            openapi.Parameter(
-                'query', 
-                openapi.IN_QUERY,
-                description="Search term for food items",
-                type=openapi.TYPE_STRING,
-                required=True
-            )
-        ]
-    )
     def get(self, request):
         query = self.request.GET.get('query', '')
         if not query:
@@ -49,20 +33,10 @@ class SearchFoodAPIView(APIView):
         return paginator.get_paginated_response(paginated_results)
 
 
-
 class FoodViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
-    queryset = Food.objects.all()
+    queryset = Food.objects.all().prefetch_related('logs')
     serializer_class = FoodSerializer
-
-
-# class FoodLogViewSet(ModelViewSet):
-#     permission_classes = [IsAuthenticated]
-#     queryset = FoodLog.objects.all()
-#     serializer_class = FoodLogSerializer
-
-#     def perform_create(self, serializer):
-#         return serializer.save(user=self.request.user)
 
 
 class FoodLogListCreate(generics.ListCreateAPIView):
