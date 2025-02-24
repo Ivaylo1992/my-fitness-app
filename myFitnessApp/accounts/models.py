@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 from myFitnessApp.accounts.managers import FitnessAppUserManager
 
+
 class FitnessAppUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         unique=True,
@@ -19,7 +20,7 @@ class FitnessAppUser(AbstractBaseUser, PermissionsMixin):
         default=False,
     )
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
 
     REQUIRED_FIELDS = []
 
@@ -27,7 +28,7 @@ class FitnessAppUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-    
+
 
 UserModel = get_user_model()
 
@@ -36,11 +37,7 @@ class FitnessAppProfile(models.Model):
     FIRST_NAME_MAX_LENGTH = 50
     LAST_NAME_MAX_LENGTH = 50
 
-    user = models.OneToOneField(
-        UserModel,
-        on_delete=models.CASCADE,
-        primary_key=True
-    )
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, primary_key=True)
 
     profile_picture = models.URLField(
         null=True,
@@ -48,16 +45,10 @@ class FitnessAppProfile(models.Model):
     )
 
     first_name = models.CharField(
-        null=True,
-        blank=True,
-        max_length=FIRST_NAME_MAX_LENGTH
+        null=True, blank=True, max_length=FIRST_NAME_MAX_LENGTH
     )
 
-    last_name = models.CharField(
-        null=True,
-        blank=True,
-        max_length=LAST_NAME_MAX_LENGTH
-    )
+    last_name = models.CharField(null=True, blank=True, max_length=LAST_NAME_MAX_LENGTH)
 
     height = models.SmallIntegerField(
         null=True,
@@ -73,10 +64,3 @@ class FitnessAppProfile(models.Model):
         null=True,
         blank=True,
     )
-
-
-
-
-
-
-

@@ -7,23 +7,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('food', '0004_alter_food_carbohydrates_alter_food_fats_and_more'),
+        ("food", "0004_alter_food_carbohydrates_alter_food_fats_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='food',
-            name='carbohydrates',
-            field=models.FloatField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(10)]),
+            model_name="food",
+            name="carbohydrates",
+            field=models.FloatField(
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(10),
+                ]
+            ),
         ),
         migrations.AlterField(
-            model_name='food',
-            name='fats',
-            field=models.FloatField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(10)]),
+            model_name="food",
+            name="fats",
+            field=models.FloatField(
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(10),
+                ]
+            ),
         ),
         migrations.AlterField(
-            model_name='food',
-            name='protein',
-            field=models.FloatField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(10)]),
+            model_name="food",
+            name="protein",
+            field=models.FloatField(
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(10),
+                ]
+            ),
         ),
     ]

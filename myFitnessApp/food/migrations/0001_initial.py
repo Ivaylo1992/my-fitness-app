@@ -7,21 +7,31 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Food',
+            name="Food",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('food_name', models.CharField(max_length=80)),
-                ('protein', models.DecimalField(decimal_places=2, max_digits=3)),
-                ('carbohydrates', models.DecimalField(decimal_places=2, max_digits=3)),
-                ('fats', models.DecimalField(decimal_places=2, max_digits=3)),
-                ('calories', models.DecimalField(decimal_places=2, editable=False, max_digits=3)),
-                ('serving_size_unit', models.CharField(max_length=2)),
-                ('serving_size', models.SmallIntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("food_name", models.CharField(max_length=80)),
+                ("protein", models.DecimalField(decimal_places=2, max_digits=3)),
+                ("carbohydrates", models.DecimalField(decimal_places=2, max_digits=3)),
+                ("fats", models.DecimalField(decimal_places=2, max_digits=3)),
+                (
+                    "calories",
+                    models.DecimalField(decimal_places=2, editable=False, max_digits=3),
+                ),
+                ("serving_size_unit", models.CharField(max_length=2)),
+                ("serving_size", models.SmallIntegerField()),
             ],
         ),
     ]

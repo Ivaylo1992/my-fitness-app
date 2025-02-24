@@ -14,18 +14,18 @@ from drf_spectacular.utils import extend_schema
 
 class SearchFoodAPIView(APIView):
     def get(self, request):
-        query = self.request.GET.get('query', '')
+        query = self.request.GET.get("query", "")
         if not query:
-            return Response({"error": "Query parameter is required"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": "Query parameter is required"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         food_data = search_food(query=query)
         if not food_data:
-            response = {
-                "error": "Failed to fetch data from USDA"
-            }
+            response = {"error": "Failed to fetch data from USDA"}
 
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
-
 
         results = get_food_data(food_data)
 
@@ -36,7 +36,7 @@ class SearchFoodAPIView(APIView):
 
 class FoodViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
-    queryset = Food.objects.all().prefetch_related('logs')
+    queryset = Food.objects.all().prefetch_related("logs")
     serializer_class = FoodSerializer
 
 

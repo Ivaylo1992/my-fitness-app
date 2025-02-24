@@ -4,40 +4,26 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 UserModel = get_user_model()
 
+
 class Food(models.Model):
     FOOD_NAME_MAX_LENGTH = 80
     SERVING_SIZE_UNIT_MAX_LENGTH = 2
 
-    food_name = models.CharField(
-        max_length=FOOD_NAME_MAX_LENGTH
-    )
+    food_name = models.CharField(max_length=FOOD_NAME_MAX_LENGTH)
 
     protein = models.FloatField(
-        validators=(
-            MinValueValidator(0),
-            MaxValueValidator(100)
-        )
+        validators=(MinValueValidator(0), MaxValueValidator(100))
     )
 
     carbohydrates = models.FloatField(
-        validators=(
-            MinValueValidator(0),
-            MaxValueValidator(100)
-        )
+        validators=(MinValueValidator(0), MaxValueValidator(100))
     )
 
-    fats = models.FloatField(
-        validators=(
-            MinValueValidator(0),
-            MaxValueValidator(100)
-        )
-    )
+    fats = models.FloatField(validators=(MinValueValidator(0), MaxValueValidator(100)))
 
     calories = models.FloatField()
 
-    serving_size_unit = models.CharField(
-        max_length=SERVING_SIZE_UNIT_MAX_LENGTH
-    )
+    serving_size_unit = models.CharField(max_length=SERVING_SIZE_UNIT_MAX_LENGTH)
 
     serving_size = models.PositiveSmallIntegerField()
 
@@ -53,14 +39,12 @@ class FoodLog(models.Model):
     food = models.ForeignKey(
         to=Food,
         on_delete=models.DO_NOTHING,
-        related_name='logs',
+        related_name="logs",
     )
 
     user = models.ForeignKey(
-        to=UserModel,
-        on_delete=models.CASCADE,
-        related_name='logs'
-        )
+        to=UserModel, on_delete=models.CASCADE, related_name="logs"
+    )
 
     quantity = models.FloatField(
         validators=(

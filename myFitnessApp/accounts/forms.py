@@ -12,4 +12,4 @@ class FitnessAppUserChangeForm(UserChangeForm):
 class FitnessAppUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = UserModel
-        fields = ('email', )
+        fields = ("email",)
