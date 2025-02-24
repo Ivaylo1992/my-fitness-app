@@ -4,8 +4,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django.contrib.auth import authenticate
+from drf_spectacular.utils import extend_schema
 
-from myFitnessApp.accounts.serializers import UserSerializer
+from myFitnessApp.accounts.serializers import LoginRequestSerializer, LoginResponseSerializer, UserSerializer
 from myFitnessApp.accounts.tokens import get_tokens_for_user
 
 
@@ -26,7 +27,16 @@ class SignupAPIView(generics.GenericAPIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-
+@extend_schema(
+    tags=['auth'],
+    summary='Login endpoint',
+    description='Authenticate a user and get back access and refresh tokens.',
+    request=LoginRequestSerializer,
+    responses={
+        200: LoginResponseSerializer,
+        401: 'Invalid email or password'
+    }
+)
 class LoginAPIView(APIView):
     permission_classes = (AllowAny,)
 
