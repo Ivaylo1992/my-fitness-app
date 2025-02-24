@@ -5,8 +5,10 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from django.contrib.auth import authenticate
 from drf_spectacular.utils import extend_schema
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.exceptions import TokenError
 
-from myFitnessApp.accounts.serializers import LoginRequestSerializer, LoginResponseSerializer, UserSerializer
+from myFitnessApp.accounts.serializers import LoginRequestSerializer, LoginResponseSerializer, LogoutRequestSerializer, LogoutResponseSerializer, UserSerializer
 from myFitnessApp.accounts.tokens import get_tokens_for_user
 
 
@@ -65,4 +67,36 @@ class LoginAPIView(APIView):
         return Response(data=content, status=status.HTTP_200_OK)
 
 
-            
+
+@extend_schema(
+    tags=['auth'],
+    summary='Logout endpoint',
+    description='Blacklist the refresh token',
+    request=LogoutRequestSerializer,
+    responses={
+        200: LogoutResponseSerializer,
+        400: 'Invalid or expired token'
+    }
+
+)
+class LogoutAPIView(APIView):
+
+    def post(self, request, *args, **kwargs):
+        try:
+            refresh_token = request.data.get('refresh')
+            token = RefreshToken(refresh_token)
+
+            return Response({
+                'message': 'Logout successful',
+
+            },
+            status=status.HTTP_200_OK,
+        )
+        
+        except TokenError:
+            return Response({
+                'error': 'Invalid or expired token'
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
