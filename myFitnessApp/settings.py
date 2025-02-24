@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_spectacular',
     'dj_rest_auth',
+    'corsheaders'
 ] + PROJECT_APPS
 
 
@@ -90,6 +91,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
