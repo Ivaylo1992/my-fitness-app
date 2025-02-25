@@ -17,7 +17,11 @@ from myFitnessApp.accounts.serializers import (
 )
 from myFitnessApp.accounts.tokens import get_tokens_for_user
 
-
+@extend_schema(
+    tags=["auth"],
+    summary="Signup endpoint",
+    description="Endpoint for creating a new user.",
+)
 class SignupAPIView(generics.GenericAPIView):
     serializer_class = UserSerializer
 

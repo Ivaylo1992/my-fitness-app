@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_spectacular",
-    "dj_rest_auth",
     "corsheaders",
 ] + PROJECT_APPS
 
