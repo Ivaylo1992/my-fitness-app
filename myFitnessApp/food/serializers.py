@@ -8,12 +8,11 @@ class FoodLogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoodLog
-        fields = ("food", "quantity", "user")
-
+        fields = ("food", "quantity", "user", "created_at", "updated_at")
+        read_only_fields = ("created_at", "updated_at")
+        
 
 class FoodSerializer(serializers.ModelSerializer):
-    logs = FoodLogSerializer(many=True, read_only=True)
-
     class Meta:
         model = Food
         fields = (
@@ -24,7 +23,6 @@ class FoodSerializer(serializers.ModelSerializer):
             "serving_size",
             "serving_size_unit",
             "calories",
-            "logs",
         )
 
         read_only_fields = ("calories",)
