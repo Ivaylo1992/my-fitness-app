@@ -11,7 +11,11 @@ from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 from drf_spectacular.utils import extend_schema
 
-
+@extend_schema(
+    tags=["food"],
+    summary="Search food endpoint",
+    description="Search food from USDA API.",
+)
 class SearchFoodAPIView(APIView):
     def get(self, request):
         query = self.request.GET.get("query", "")
@@ -33,13 +37,21 @@ class SearchFoodAPIView(APIView):
         paginated_results = paginator.paginate_queryset(results, request)
         return paginator.get_paginated_response(paginated_results)
 
-
+@extend_schema(
+    tags=["food"],
+    summary="Food endpoint",
+    description="All CRUD operations for the food model.",
+)
 class FoodViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Food.objects.all().prefetch_related("logs")
     serializer_class = FoodSerializer
 
-
+@extend_schema(
+    tags=["food log"],
+    summary="Food log list create endpoint",
+    description="Creates a food log and list already created logs",
+)
 class FoodLogListCreate(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = FoodLogSerializer
@@ -49,6 +61,11 @@ class FoodLogListCreate(generics.ListCreateAPIView):
         return serializer.save(user=self.request.user)
 
 
+@extend_schema(
+    tags=["food log"],
+    summary="Food log retrieve update endpoint",
+    description="Deletes , updates or retrieves a food log by ID",
+)
 class FoodLogRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = FoodLogSerializer
