@@ -11,7 +11,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("food/", include("myFitnessApp.food.urls")),
     path("accounts/", include("myFitnessApp.accounts.urls")),
-    path("dj-rest-auth/", include("dj_rest_auth.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
     path(
