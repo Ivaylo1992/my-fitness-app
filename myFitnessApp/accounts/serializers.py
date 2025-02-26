@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 from django.contrib.auth import get_user_model
 
+from myFitnessApp.accounts.models import FitnessAppProfile
+
 
 UserModel = get_user_model()
 
@@ -40,3 +42,10 @@ class LogoutRequestSerializer(serializers.Serializer):
 
 class LogoutResponseSerializer(serializers.Serializer):
     message = serializers.CharField()
+
+
+class FitnessAppProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FitnessAppProfile
+        fields = ('first_name', 'last_name', 'date_of_birth',
+                   'weight', 'height', 'profile_picture')

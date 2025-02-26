@@ -1,6 +1,7 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django.contrib.auth import authenticate
@@ -8,7 +9,9 @@ from drf_spectacular.utils import extend_schema
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 
+from myFitnessApp.accounts.models import FitnessAppProfile
 from myFitnessApp.accounts.serializers import (
+    FitnessAppProfileSerializer,
     LoginRequestSerializer,
     LoginResponseSerializer,
     LogoutRequestSerializer,
@@ -97,3 +100,13 @@ class LogoutAPIView(APIView):
                 {"error": "Invalid or expired token"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+
+class ProfileRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = FitnessAppProfileSerializer
+    queryset = FitnessAppProfile.objects.all()
+
+    def get_object(self):
+        return get_object_or_404(FitnessAppProfile, pk=self.request.user.pk)
+
+    

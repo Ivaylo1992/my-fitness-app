@@ -67,6 +67,5 @@ class FoodLogListCreate(generics.ListCreateAPIView):
     description="Deletes , updates or retrieves a food log by ID",
 )
 class FoodLogRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = FoodLogSerializer
     queryset = FoodLog.objects.all()
