@@ -9,16 +9,24 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema, OpenApiParameter
+from drf_spectacular.types import OpenApiTypes
 
 @extend_schema(
     tags=["food"],
     summary="Search food endpoint",
     description="Search food from USDA API.",
+    parameters=[
+        OpenApiParameter(
+            name='food_name',
+            type=OpenApiTypes.STR,
+            location=OpenApiParameter.QUERY,
+        )
+    ]
 )
 class SearchFoodAPIView(APIView):
     def get(self, request):
-        query = self.request.GET.get("query", "")
+        query = self.request.GET.get("food_name", "")
         if not query:
             return Response(
                 {"error": "Query parameter is required"},
