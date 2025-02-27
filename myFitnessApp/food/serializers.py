@@ -9,7 +9,7 @@ class FoodLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = FoodLog
         fields = ("food", "quantity", "user", "created_at", "updated_at")
-        read_only_fields = ("created_at", "updated_at")
+        read_only_fields = ("created_at", "updated_at", "user")
         
 
 class FoodSerializer(serializers.ModelSerializer):

@@ -12,6 +12,7 @@ from rest_framework.viewsets import ModelViewSet
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from drf_spectacular.types import OpenApiTypes
 
+
 @extend_schema(
     tags=["food"],
     summary="Search food endpoint",
@@ -45,15 +46,16 @@ class SearchFoodAPIView(APIView):
         paginated_results = paginator.paginate_queryset(results, request)
         return paginator.get_paginated_response(paginated_results)
 
+
 @extend_schema(
     tags=["food"],
     summary="Food endpoint",
     description="All CRUD operations for the food model.",
 )
 class FoodViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    queryset = Food.objects.all().prefetch_related("logs")
+    queryset = Food.objects.all()
     serializer_class = FoodSerializer
+
 
 @extend_schema(
     tags=["food log"],
@@ -61,7 +63,6 @@ class FoodViewSet(ModelViewSet):
     description="Creates a food log and list already created logs",
 )
 class FoodLogListCreate(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = FoodLogSerializer
     queryset = FoodLog.objects.all()
 
