@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django.contrib.auth import authenticate
@@ -102,11 +102,37 @@ class LogoutAPIView(APIView):
             )
 
 
-class ProfileRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+class ProfileRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = FitnessAppProfileSerializer
     queryset = FitnessAppProfile.objects.all()
 
     def get_object(self):
         return get_object_or_404(FitnessAppProfile, pk=self.request.user.pk)
-
+    
+    @extend_schema(
+        tags=['profile'],
+        summary="Retrieve the profile of the request user",
+        description="Fetch details of a specific profile by the request user.",
+        responses={200: FitnessAppProfileSerializer}
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+    
+    @extend_schema(
+        tags=['profile'],
+        summary="Partially update the profile of the request user",
+        description="Partially update a specific profile by the request user.",
+        responses={200: FitnessAppProfileSerializer}
+    )
+    def patch(self, request, *args, **kwargs):
+        return super().patch(request, *args, **kwargs)
+    
+    @extend_schema(
+        tags=['profile'],
+        summary="Update the profile of the request user",
+        description="Update a specific profile by the request user.",
+        responses={200: FitnessAppProfileSerializer}
+    )
+    def put(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
     
