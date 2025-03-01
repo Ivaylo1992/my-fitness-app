@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-# Create your views here.
+from myFitnessApp.workouts.models import Exercise
+from myFitnessApp.workouts.serializers import ExerciseSerializer
+
+
+class ExerciseListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = ExerciseSerializer
+    queryset = Exercise.objects.all()
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
