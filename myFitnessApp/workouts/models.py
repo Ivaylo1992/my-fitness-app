@@ -27,7 +27,7 @@ class Exercise(models.Model):
         max_length=NAME_MAX_LENGTH,
     )
 
-    MuscleGroup = models.CharField(
+    muscle_group = models.CharField(
         max_length=MUSCLE_GROUP_MAX_LENGTH,
         choices=MuscleGroupChoices.choices,
         default=MuscleGroupChoices.OTHER
