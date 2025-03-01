@@ -2,8 +2,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from myFitnessApp.food.models import Food, FoodLog
 from myFitnessApp.food.serializers import FoodLogSerializer, FoodSerializer
-from utils.food_data import get_food_data
-from utils.food_api import search_food
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.pagination import PageNumberPagination
@@ -11,6 +9,9 @@ from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from drf_spectacular.types import OpenApiTypes
+
+from myFitnessApp.food.utils.food_api import search_food
+from myFitnessApp.food.utils.food_data import get_food_data
 
 
 @extend_schema(
