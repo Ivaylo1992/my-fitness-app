@@ -10,6 +10,7 @@ from rest_framework.viewsets import ModelViewSet
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from drf_spectacular.types import OpenApiTypes
 
+
 from myFitnessApp.food.utils.food_api import search_food
 from myFitnessApp.food.utils.food_data import get_food_data
 
