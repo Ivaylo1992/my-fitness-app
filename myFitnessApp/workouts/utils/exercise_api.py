@@ -11,7 +11,7 @@ def search_exercise(query):
     API_KEY = settings.API_NINJAS_API_KEY
 
     headers = {
-        "X-Api-Key": API_KEY  # Correct header placement
+        "X-Api-Key": API_KEY
     }
 
     params = {
