@@ -48,5 +48,12 @@ class ExerciseListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ExerciseSerializer
     queryset = Exercise.objects.all()
 
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+
+
+class ExerciseRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ExerciseSerializer
+    queryset = Exercise.objects.all()
+    
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
