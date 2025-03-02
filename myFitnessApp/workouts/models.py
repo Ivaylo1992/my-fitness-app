@@ -1,5 +1,10 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
+from myFitnessApp.utils.helpers import save_workout_name
+from myFitnessApp.utils.mixins import HasUserMixin, TimeStampedMixin
+
+UserModel = get_user_model()
 
 class Exercise(models.Model):
     class EquipmentChoices(models.TextChoices):
@@ -62,7 +67,58 @@ class Exercise(models.Model):
         blank=True
     )
 
+    # TODO: fixe video and picture field
+
     instructions = models.TextField(
         null=True,
         blank=True
     )
+
+
+class ExerciseLog(models.Model, HasUserMixin, TimeStampedMixin):
+    NOTES_MAX_LENGTH = 50
+
+    exercise = models.ForeignKey(
+        to=Exercise,
+        on_delete=models.CASCADE,
+    )
+
+    sets = models.PositiveSmallIntegerField()
+
+    repetitions = models.PositiveSmallIntegerField()
+
+    rest_time = models.DecimalField(
+        decimal_places=2,
+        max_digits=2,
+        null=True,
+        blank=True
+    )
+
+    notes = models.TextField(
+        max_length=NOTES_MAX_LENGTH,
+        null=True,
+        blank=True,
+    )
+
+class WorkoutLog(models.Model, HasUserMixin, TimeStampedMixin):
+    exercise_logs = models.ManyToManyField(
+        to=ExerciseLog,
+        related_name='workouts',
+    )
+
+    name = models.CharField(
+        null=False,
+        blank=True,
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.name():
+            save_workout_name(self)
+
+        super().save(*args, **kwargs)
+
+
+
+
+
+
