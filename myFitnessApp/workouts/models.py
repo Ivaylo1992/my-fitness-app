@@ -87,9 +87,7 @@ class ExerciseLog(HasUserMixin, TimeStampedMixin, models.Model):
 
     repetitions = models.PositiveSmallIntegerField()
 
-    rest_time = models.DecimalField(
-        decimal_places=2,
-        max_digits=2,
+    rest_time = models.PositiveSmallIntegerField(
         null=True,
         blank=True
     )
