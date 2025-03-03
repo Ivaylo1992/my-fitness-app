@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 
 UserModel = get_user_model()
 
-class TimeStampedMixin:
+class TimeStampedMixin(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True,
     )
@@ -12,9 +12,15 @@ class TimeStampedMixin:
         auto_now=True,
     )
 
+    class Meta:
+        abstract = True
 
-class HasUserMixin:
+
+class HasUserMixin(models.Model):
     user = models.ForeignKey(
         to=UserModel,
         on_delete=models.CASCADE,
     )
+
+    class Meta:
+        abstract = True

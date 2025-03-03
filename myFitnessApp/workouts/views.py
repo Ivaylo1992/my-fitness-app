@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
-from myFitnessApp.workouts.models import Exercise
-from myFitnessApp.workouts.serializers import ExerciseSerializer
+from myFitnessApp.workouts.models import Exercise, WorkoutLog
+from myFitnessApp.workouts.serializers import ExerciseSerializer, WorkoutLogSerializer
 from myFitnessApp.workouts.utils.exercise_api import search_exercise
 
 
@@ -57,3 +57,10 @@ class ExerciseRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView)
     
     permission_classes = (IsAuthenticatedOrReadOnly, )
 
+
+class WorkoutLogCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = WorkoutLogSerializer
+    queryset = WorkoutLog.objects.all()
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)

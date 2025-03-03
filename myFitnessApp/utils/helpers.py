@@ -1,3 +1,5 @@
+from django.utils.timezone import now, localtime
+
 def save_workout_name(obj):
     time_related_names = {
         (1, 11): 'Morning',
@@ -8,5 +10,7 @@ def save_workout_name(obj):
     }
 
     for time_range, workout_name in time_related_names.items():
-        if obj.updated_at in range(*time_range):
+        update_hour = localtime(now()).hour
+
+        if update_hour in range(*time_range):
             obj.name = f'{workout_name} Workout'

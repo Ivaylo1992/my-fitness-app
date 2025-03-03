@@ -67,7 +67,7 @@ class Exercise(models.Model):
         blank=True
     )
 
-    # TODO: fixe video and picture field
+    # TODO: fix video and picture field
 
     instructions = models.TextField(
         null=True,
@@ -75,7 +75,7 @@ class Exercise(models.Model):
     )
 
 
-class ExerciseLog(models.Model, HasUserMixin, TimeStampedMixin):
+class ExerciseLog(HasUserMixin, TimeStampedMixin, models.Model):
     NOTES_MAX_LENGTH = 50
 
     exercise = models.ForeignKey(
@@ -100,7 +100,7 @@ class ExerciseLog(models.Model, HasUserMixin, TimeStampedMixin):
         blank=True,
     )
 
-class WorkoutLog(models.Model, HasUserMixin, TimeStampedMixin):
+class WorkoutLog(TimeStampedMixin, HasUserMixin):
     exercise_logs = models.ManyToManyField(
         to=ExerciseLog,
         related_name='workouts',
@@ -112,7 +112,7 @@ class WorkoutLog(models.Model, HasUserMixin, TimeStampedMixin):
     )
 
     def save(self, *args, **kwargs):
-        if not self.name():
+        if not self.name:
             save_workout_name(self)
 
         super().save(*args, **kwargs)
