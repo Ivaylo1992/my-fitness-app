@@ -97,6 +97,10 @@ class ExerciseLog(HasUserMixin, TimeStampedMixin, models.Model):
     )
 
 class WorkoutLog(TimeStampedMixin, HasUserMixin):
+
+    class Meta:
+        ordering = ['-created_at']
+
     exercise_logs = models.ManyToManyField(
         to=ExerciseLog,
         related_name='workouts',

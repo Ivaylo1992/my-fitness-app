@@ -26,7 +26,6 @@ class ExerciseLogSerializer(serializers.ModelSerializer):
             'id',
             'exercise',
             'exercise_name',
-            'sets',
             'repetitions',
             'rest_time',
             'notes',
