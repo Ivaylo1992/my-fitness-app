@@ -83,8 +83,6 @@ class ExerciseLog(HasUserMixin, TimeStampedMixin, models.Model):
         on_delete=models.CASCADE,
     )
 
-    sets = models.PositiveSmallIntegerField()
-
     repetitions = models.PositiveSmallIntegerField()
 
     rest_time = models.PositiveSmallIntegerField(
