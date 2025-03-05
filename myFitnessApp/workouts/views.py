@@ -59,8 +59,15 @@ class ExerciseRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView)
 
 
 class WorkoutLogCreateAPIView(generics.ListCreateAPIView):
+    permission_classes = (AllowAny, )
     serializer_class = WorkoutLogSerializer
     queryset = WorkoutLog.objects.all()
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+
+
+class WorkoutRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = WorkoutLogSerializer
+    queryset = WorkoutLog.objects.all()

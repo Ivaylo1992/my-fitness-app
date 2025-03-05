@@ -6,4 +6,5 @@ urlpatterns = [
     path('exercises/', views.ExerciseListCreateAPIView.as_view(), name='exercises_list_create'),
     path('exercises/<int:pk>', views.ExerciseRetrieveUpdateDeleteAPIView.as_view(), name='exercises_retrieve_update_delete'),
     path('workout_log/', views.WorkoutLogCreateAPIView.as_view(), name='workout_log_create'),
+    path('workout_log/<int:pk>', views.WorkoutRetrieveUpdateDeleteAPIView.as_view(), name='workout_retrieve_update_delete'),    
 ]
