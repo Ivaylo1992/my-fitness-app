@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+from rest_framework.viewsets import ModelViewSet
 
 from myFitnessApp.workouts.models import Exercise, WorkoutLog
 from myFitnessApp.workouts.serializers import ExerciseSerializer, WorkoutLogSerializer
@@ -11,7 +12,7 @@ from myFitnessApp.workouts.utils.exercise_api import search_exercise
 
 
 @extend_schema(
-    tags=["exercises"],
+    tags=["exercises search"],
     summary="Search exercises endpoint",
     description="Search exercises from API ninjas.",
     parameters=[
@@ -43,31 +44,26 @@ class SearchExercisesAPIView(APIView):
         )
 
 
-
-class ExerciseListCreateAPIView(generics.ListCreateAPIView):
+@extend_schema(
+    tags=["exercises"],
+    summary="Exercises endpoint",
+    description="All CRUD operations for the Exercise model.",
+)
+class ExerciseViewSet(ModelViewSet):
     serializer_class = ExerciseSerializer
     queryset = Exercise.objects.all()
 
     permission_classes = (IsAuthenticatedOrReadOnly, )
 
 
-class ExerciseRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = ExerciseSerializer
-    queryset = Exercise.objects.all()
-    
-    permission_classes = (IsAuthenticatedOrReadOnly, )
-
-
-class WorkoutLogCreateAPIView(generics.ListCreateAPIView):
-    permission_classes = (AllowAny, )
+@extend_schema(
+    tags=["workouts"],
+    summary="Workout endpoint",
+    description="All CRUD operations for the WorkoutLog model.",
+)
+class WorkoutViewSet(ModelViewSet):
     serializer_class = WorkoutLogSerializer
     queryset = WorkoutLog.objects.all()
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
-
-
-class WorkoutRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (AllowAny, )
-    serializer_class = WorkoutLogSerializer
-    queryset = WorkoutLog.objects.all()
