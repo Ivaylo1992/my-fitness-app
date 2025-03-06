@@ -5,7 +5,6 @@ from myFitnessApp.food.serializers import FoodLogSerializer, FoodSerializer
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.pagination import PageNumberPagination
-from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from drf_spectacular.types import OpenApiTypes
@@ -62,22 +61,12 @@ class FoodViewSet(ModelViewSet):
 
 @extend_schema(
     tags=["food log"],
-    summary="Food log list create endpoint",
-    description="Creates a food log and list already created logs",
+    summary="Food log endpoint",
+    description="All CRUD operations for the food log model.",
 )
-class FoodLogListCreate(generics.ListCreateAPIView):
-    serializer_class = FoodLogSerializer
+class FoodLogViewSet(ModelViewSet):
     queryset = FoodLog.objects.all()
-
+    serializer_class = FoodLogSerializer
+    
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
-
-
-@extend_schema(
-    tags=["food log"],
-    summary="Food log retrieve update endpoint",
-    description="Deletes , updates or retrieves a food log by ID",
-)
-class FoodLogRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = FoodLogSerializer
-    queryset = FoodLog.objects.all()
