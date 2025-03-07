@@ -6,6 +6,7 @@ from myFitnessApp.accounts.forms import (
     FitnessAppUserChangeForm,
     FitnessAppUserCreationForm,
 )
+from myFitnessApp.accounts.models import FitnessAppProfile
 
 UserModel = get_user_model()
 
@@ -39,3 +40,10 @@ class FitnessAppUserAdmin(UserAdmin):
             },
         ),
     )
+
+
+@admin.register(FitnessAppProfile)
+class FitnessAppProfileAdmin(admin.ModelAdmin):
+    list_display = ('pk', '__str__', 'height', 'weight')
+
+    search_fields = ('first_name', 'last_name', 'user__email')
