@@ -36,6 +36,7 @@ PROJECT_APPS = [
     "myFitnessApp.food",
     "myFitnessApp.accounts",
     "myFitnessApp.workouts",
+    "myFitnessApp.bodycompositions",
 ]
 
 INSTALLED_APPS = [
