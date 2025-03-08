@@ -5,18 +5,14 @@ from myFitnessApp.utils.mixins import HasUserMixin, TimeStampedMixin
 
 
 class BodyCompositionLog(TimeStampedMixin, HasUserMixin):
-    weight = models.DecimalField(
-        max_digits=4,
-        decimal_places=1,
+    weight = models.FloatField(
         validators=(
             MinValueValidator(0),
             MaxValueValidator(499.9)
         )
     )
 
-    body_fat = models.DecimalField(
-        max_digits=3,
-        decimal_places=1,
+    body_fat = models.FloatField(
         validators=(
             MinValueValidator(0),
             MaxValueValidator(99.9)

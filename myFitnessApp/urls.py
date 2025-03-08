@@ -12,6 +12,7 @@ urlpatterns = [
     path("food/", include("myFitnessApp.food.urls")),
     path("accounts/", include("myFitnessApp.accounts.urls")),
     path("workouts/", include("myFitnessApp.workouts.urls")),
+    path("body_composition/", include("myFitnessApp.bodycompositions.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
     path("", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
