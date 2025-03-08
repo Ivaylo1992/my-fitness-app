@@ -25,6 +25,9 @@ class BodyCompositionLog(TimeStampedMixin, HasUserMixin):
         blank=True,
     )
 
+    def __str__(self):
+        return f'Body composition log made on {self.created_at.date()}'
+
 
 class BodyMeasurements(TimeStampedMixin, HasUserMixin):
     neck = models.DecimalField(
@@ -103,3 +106,6 @@ class BodyMeasurements(TimeStampedMixin, HasUserMixin):
         null=True,
         blank=True,
     )
+
+    def __str__(self):
+        return f'Body Measurement Log created on {self.created_at.date()}'
