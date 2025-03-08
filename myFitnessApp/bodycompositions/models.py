@@ -26,9 +26,7 @@ class BodyCompositionLog(TimeStampedMixin, HasUserMixin):
 
 
 class BodyMeasurements(TimeStampedMixin, HasUserMixin):
-    neck = models.DecimalField(
-        max_digits=3,
-        decimal_places=1,
+    neck = models.FloatField(
         validators=(
             MinValueValidator(0),
             MaxValueValidator(49.9)
@@ -37,9 +35,7 @@ class BodyMeasurements(TimeStampedMixin, HasUserMixin):
         blank=True,
     )
 
-    chest = models.DecimalField(
-        max_digits=4,
-        decimal_places=1,
+    chest = models.FloatField(
         validators=(
             MinValueValidator(0),
             MaxValueValidator(149.9)
@@ -48,9 +44,7 @@ class BodyMeasurements(TimeStampedMixin, HasUserMixin):
         blank=True,
     )
 
-    biceps = models.DecimalField(
-        max_digits=3,
-        decimal_places=1,
+    biceps = models.FloatField(
         validators=(
             MinValueValidator(0),
             MaxValueValidator(99.9)
@@ -59,9 +53,7 @@ class BodyMeasurements(TimeStampedMixin, HasUserMixin):
         blank=True,
     )
 
-    waist = models.DecimalField(
-        max_digits=4,
-        decimal_places=1,
+    waist = models.FloatField(
         validators=(
             MinValueValidator(0),
             MaxValueValidator(299.9)
@@ -70,9 +62,7 @@ class BodyMeasurements(TimeStampedMixin, HasUserMixin):
         blank=True,
     )
 
-    hips = models.DecimalField(
-        max_digits=4,
-        decimal_places=1,
+    hips = models.FloatField(
         validators=(
             MinValueValidator(0),
             MaxValueValidator(299.9)
@@ -81,9 +71,7 @@ class BodyMeasurements(TimeStampedMixin, HasUserMixin):
         blank=True,
     )
 
-    thigh =models.DecimalField(
-        max_digits=3,
-        decimal_places=1,
+    thigh =models.FloatField(
         validators=(
             MinValueValidator(0),
             MaxValueValidator(99.9)
@@ -92,9 +80,7 @@ class BodyMeasurements(TimeStampedMixin, HasUserMixin):
         blank=True,
     )
 
-    calf =models.DecimalField(
-        max_digits=3,
-        decimal_places=1,
+    calf =models.FloatField(
         validators=(
             MinValueValidator(0),
             MaxValueValidator(99.9)
