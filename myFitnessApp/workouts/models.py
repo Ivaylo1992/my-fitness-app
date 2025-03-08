@@ -42,6 +42,7 @@ class Exercise(models.Model):
 
     name = models.CharField(
         max_length=NAME_MAX_LENGTH,
+        # TODO: add min length
     )
     
 
@@ -74,6 +75,9 @@ class Exercise(models.Model):
         blank=True
     )
 
+    def __str__(self):
+        return self.name
+
 
 class ExerciseLog(HasUserMixin, TimeStampedMixin, models.Model):
     NOTES_MAX_LENGTH = 50
@@ -98,6 +102,9 @@ class ExerciseLog(HasUserMixin, TimeStampedMixin, models.Model):
         blank=True,
     )
 
+    def __str__(self):
+        return f'Exercise log made on {self.created_at.date()}'
+
 class WorkoutLog(TimeStampedMixin, HasUserMixin):
 
     class Meta:
@@ -118,6 +125,9 @@ class WorkoutLog(TimeStampedMixin, HasUserMixin):
             save_workout_name(self)
 
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.name} made on {self.created_at.date()}'
 
 
 
