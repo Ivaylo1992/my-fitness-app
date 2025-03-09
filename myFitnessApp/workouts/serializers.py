@@ -72,8 +72,9 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
 
         return logs_pks
     
-    def create_or_update_exercise_logs(self, exercise_logs, user, instance):
+    def create_or_update_exercise_logs(self, exercise_logs, instance):
         log_pks = [log.id for log in instance.exercise_logs.all()]
+        user = instance.user
 
         for log in exercise_logs:
             log_instance, created = ExerciseLog.objects.update_or_create(
@@ -95,10 +96,9 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         exercise_logs = validated_data.pop('exercise_logs', [])
-        user = instance.user
 
         instance.exercise_logs.set(self.create_or_update_exercise_logs(
-            exercise_logs=exercise_logs, user=user, instance=instance)
+            exercise_logs=exercise_logs, instance=instance)
         )
 
         fields = ['id', 'name']
