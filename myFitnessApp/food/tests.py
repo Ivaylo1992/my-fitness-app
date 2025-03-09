@@ -2,10 +2,15 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
 
+from myFitnessApp.utils.factory import AdminFactory, UserFactory
+
 
 class USDAFoodSearchTest(APITestCase):
     def setUp(self):
         self.url = reverse('search_food')
+        user = AdminFactory()
+        self.client.force_authenticate(user=user)
+        
     
     def test_search_with_bad_query__returns_400_bad_request(self):
         query = 'asdsdasdasdasd' # query that gives no results
