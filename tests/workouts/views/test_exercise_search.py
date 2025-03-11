@@ -28,4 +28,3 @@ class SearchExerciseTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('name', response.data[0])
         self.assertTrue(len(response.data) > 0)
-        
