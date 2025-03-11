@@ -1,11 +1,14 @@
 from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
+from myFitnessApp.utils.factories import UserFactory
 
 
 class SearchExerciseTest(APITestCase):
     def setUp(self):
         self.url = reverse('search_exercises_api')
+        user = UserFactory()
+        self.client.force_authenticate(user=user)
     
     def test_get_without_query(self):
         response = self.client.get(self.url, {'muscle': ''}, format='json')

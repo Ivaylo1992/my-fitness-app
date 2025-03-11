@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
 
-from myFitnessApp.utils.factory import AdminFactory, FoodFactory, UserFactory
+from myFitnessApp.utils.factories import AdminFactory, FoodFactory, UserFactory
 
 
 class USDAFoodSearchTest(APITestCase):

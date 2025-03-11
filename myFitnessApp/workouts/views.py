@@ -23,8 +23,6 @@ from myFitnessApp.workouts.utils.exercise_api import search_exercise
     ]
 )
 class SearchExercisesAPIView(APIView):
-    permission_classes = (AllowAny, )
-
     def get(self, request):
         query = self.request.GET.get('muscle', '')
 
