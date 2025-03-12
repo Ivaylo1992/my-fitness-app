@@ -67,7 +67,7 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
 
         for log in exercise_logs:
             log_instance, created = ExerciseLog.objects.get_or_create(
-                pk=log.get('id'), user=user,defaults=log)
+                pk=log.get('id'), user=user, defaults=log)
             logs_pks.append(log_instance.pk)
 
         return logs_pks
