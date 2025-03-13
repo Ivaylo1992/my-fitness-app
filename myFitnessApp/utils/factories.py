@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from factory.django import DjangoModelFactory
 
 from myFitnessApp.food.models import Food
+from myFitnessApp.workouts.models import Exercise
 
 UserModel = get_user_model()
 
@@ -32,6 +33,13 @@ class FoodFactory(DjangoModelFactory):
     fats = 10
     serving_size_unit = 'g'
     serving_size = 100
-    
 
-    factory.faker
+
+class ExerciseFactory(DjangoModelFactory):
+    class Meta:
+        model = Exercise
+
+    name = 'Test exercise'
+    muscle_group = 'biceps'
+    equipment = 'barbell'
+    instructions = 'test instructions'

@@ -97,7 +97,6 @@ class TestWorkoutLogSerializer(APITestCase):
         serializer = self.serializer(data=data)
         self.assertTrue(serializer.is_valid(), serializer.errors)
         instance = serializer.save(user=self.user)
-        print(instance.exercise_logs.first().pk)
 
         new_data = {
             'exercise_logs': [

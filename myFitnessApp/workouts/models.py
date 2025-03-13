@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import MinLengthValidator
 
 from myFitnessApp.utils.helpers import save_workout_name
 from myFitnessApp.utils.mixins import HasUserMixin, TimeStampedMixin
@@ -42,7 +43,7 @@ class Exercise(models.Model):
 
     name = models.CharField(
         max_length=NAME_MAX_LENGTH,
-        # TODO: add min length
+        validators=(MinLengthValidator(5),)
     )
     
 
