@@ -3,9 +3,15 @@ from django.contrib.auth import get_user_model
 from factory.django import DjangoModelFactory
 
 from myFitnessApp.food.models import Food
-from myFitnessApp.workouts.models import Exercise
+from myFitnessApp.workouts.models import Exercise, ExerciseLog
 
 UserModel = get_user_model()
+
+class UserModelFactory(DjangoModelFactory):
+    class Meta:
+        model = UserModel
+
+    email = 'test@user.com'
 
 class UserFactory(factory.Factory):
     class Meta:
@@ -43,3 +49,13 @@ class ExerciseFactory(DjangoModelFactory):
     muscle_group = 'biceps'
     equipment = 'barbell'
     instructions = 'test instructions'
+
+
+class ExerciseLogFactory(DjangoModelFactory):
+    class Meta:
+        model = ExerciseLog
+
+    exercise = factory.SubFactory(ExerciseFactory)
+    user = factory.SubFactory(UserFactory)
+    repetitions = 10
+    weight = 120
