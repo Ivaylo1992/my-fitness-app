@@ -123,8 +123,7 @@ class WorkoutLog(TimeStampedMixin, HasUserMixin):
 
     def save(self, *args, **kwargs):
         if not self.name:
-            save_workout_name(self)
-
+            self.name = save_workout_name()
         super().save(*args, **kwargs)
 
     def __str__(self):
