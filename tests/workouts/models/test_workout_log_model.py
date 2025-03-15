@@ -1,8 +1,5 @@
-
-
 from django.test import TestCase
-from unittest.mock import patch
-from django.utils.timezone import datetime
+from freezegun import freeze_time
 from myFitnessApp.utils.factories import ExerciseLogFactory, UserModelFactory, WorkoutLogFactory
 from myFitnessApp.workouts.models import WorkoutLog
 
@@ -13,8 +10,6 @@ class WorkoutLogTest(TestCase):
         self.exercise_log = ExerciseLogFactory(user=self.user)
         self.workout_log = WorkoutLogFactory(user=self.user)
         self.workout_log.exercise_logs.set([self.exercise_log])
-    
-
         
     def test__model_labels(self):
         """Testing all fields labels of the model with subTest"""
@@ -33,21 +28,24 @@ class WorkoutLogTest(TestCase):
                 self.assertEqual(current_label, expected_label)
     
 
-    def test__save_method__assigns_workout_name(self):
-        '''Assigning of the correct workout name is tested in the save_workout_name test'''
-
-        workout_names = [
-            "Morning Workout",
-            "Noon Workout",      
-            "Afternoon Workout", 
-            "Night Workout",     
-            "Midnight Workout",  
-            "Midnight Workout"
+    def test__save_method__assigns_correct_workout_name(self):
+        hour_cases = [
+            (6, "Morning Workout"),    # 6 AM → Morning
+            (12, "Noon Workout"),      # 12 PM → Noon
+            (15, "Afternoon Workout"), # 3 PM → Afternoon
+            (19, "Night Workout"),     # 7 PM → Night
+            (23, "Midnight Workout"),  # 11 PM → Midnight
+            (0, "Midnight Workout"),   # 12 AM → Midnight
         ]
 
-        self.assertIn(self.workout_log.name, workout_names)
+        for hour, workout_name in hour_cases:
+            with freeze_time(f'2025-03-14 {hour}:00:00'):
+                workout = WorkoutLog.objects.create(user=self.user)
+                self.assertEqual(workout.name, workout_name)
 
     def test__str_method(self):
         expected_value = 'Morning Workout made on 2025-03-14'
 
-        self.assertEqual(str(self.workout_log), expected_value)
+        with freeze_time(f'2025-03-14 06:00:00'):
+            workout = WorkoutLog.objects.create(user=self.user)
+            self.assertEqual(str(workout), expected_value)

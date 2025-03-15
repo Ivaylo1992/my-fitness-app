@@ -1,11 +1,12 @@
 from django.test import TestCase
+from freezegun import freeze_time
 from myFitnessApp.utils.factories import ExerciseLogFactory, UserModelFactory
 
 
 class ExerciseLogTest(TestCase):
     def setUp(self):
-        user = UserModelFactory()
-        self.exercise_log = ExerciseLogFactory(user=user)
+        self.user = UserModelFactory()
+        self.exercise_log = ExerciseLogFactory(user=self.user)
 
     
     def test__model_labels(self):
@@ -30,4 +31,6 @@ class ExerciseLogTest(TestCase):
     def test__str_method(self):
         expected_output = 'Exercise log made on 2025-03-14'
 
-        self.assertEqual(str(self.exercise_log), expected_output)
+        with freeze_time('2025-03-14 18:45:00'):
+            exercise_log = ExerciseLogFactory(user=self.user)
+            self.assertEqual(str(exercise_log), expected_output)

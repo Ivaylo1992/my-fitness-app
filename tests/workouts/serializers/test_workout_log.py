@@ -1,4 +1,5 @@
 from rest_framework.test import APITestCase
+from myFitnessApp.utils.factories import ExerciseFactory, UserModelFactory
 from myFitnessApp.workouts.models import Exercise, WorkoutLog
 from myFitnessApp.workouts.serializers import WorkoutLogSerializer
 from django.contrib.auth import get_user_model
@@ -7,10 +8,9 @@ User = get_user_model()
 
 class TestWorkoutLogSerializer(APITestCase):
     def setUp(self):
-        self.user = User.objects.create(email="test@example.com")
-        self.client.force_authenticate(user=self.user)
+        self.user = UserModelFactory()
         self.serializer = WorkoutLogSerializer
-        self.exercise = Exercise.objects.create(name='test name', muscle_group='biceps')
+        self.exercise = ExerciseFactory()
     
     def test__create_method_with_workout_without_exercise_logs(self):
         data = {
@@ -21,9 +21,9 @@ class TestWorkoutLogSerializer(APITestCase):
         serializer = self.serializer(data=data)
         self.assertTrue(serializer.is_valid(), serializer.errors)
         instance = serializer.save(user=self.user)
-        
+
         self.assertEqual(instance.name, data['name'])
-        self.assertTrue(len(instance.exercise_logs.all()) == 0)
+        self.assertEqual(instance.exercise_logs.count(), 0)
 
     def test__create_method_with_workout_and_exercise_logs(self):
         data = {
@@ -43,15 +43,15 @@ class TestWorkoutLogSerializer(APITestCase):
         self.assertTrue(serializer.is_valid(), serializer.errors)
         instance = serializer.save(user=self.user)
 
-        self.assertTrue(len(instance.exercise_logs.all()) == 1)
+        self.assertEqual(instance.exercise_logs.count(), 1)
         self.assertEqual(instance.name, data["name"])
-        self.assertEqual(instance.id, 1)
+        self.assertIsNotNone(instance.id)
 
     
     def test__update_method_with_empty_workout(self):
         instance = WorkoutLog.objects.create(name='Test2', user=self.user)
         
-        self.assertTrue(instance.exercise_logs.count() == 0)
+        self.assertEqual(instance.exercise_logs.count(), 0)
 
         data = {
             'name': 'Test3',
@@ -73,7 +73,7 @@ class TestWorkoutLogSerializer(APITestCase):
             ]
         }
 
-        serializer = WorkoutLogSerializer(instance, data)
+        serializer = self.serializer(instance, data)
         self.assertTrue(serializer.is_valid(), serializer.errors)
         updated_instance = serializer.save()
 
@@ -110,6 +110,5 @@ class TestWorkoutLogSerializer(APITestCase):
         self.assertTrue(serializer.is_valid(), serializer.errors)
         updated_instance = serializer.save()
         
-        self.assertEqual(
-            updated_instance.exercise_logs.first().notes,
-            new_data["exercise_logs"][0]['notes'])
+        self.assertEqual(updated_instance.exercise_logs.get(
+            pk=instance.exercise_logs.first().pk).notes, "Edited notes")
