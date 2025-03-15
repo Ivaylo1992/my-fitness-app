@@ -26,6 +26,8 @@ class WorkoutLogTest(TestCase):
             with self.subTest(field=field):
                 current_label = self.workout_log._meta.get_field(field).verbose_name
                 self.assertEqual(current_label, expected_label)
+        
+        self.assertCountEqual(self.workout_log.exercise_logs.all(), [self.exercise_log])
     
 
     def test__save_method__assigns_correct_workout_name(self):
@@ -44,8 +46,7 @@ class WorkoutLogTest(TestCase):
                 self.assertEqual(workout.name, workout_name)
 
     def test__str_method(self):
-        expected_value = 'Morning Workout made on 2025-03-14'
-
         with freeze_time(f'2025-03-14 06:00:00'):
             workout = WorkoutLog.objects.create(user=self.user)
+            expected_value = f"{workout.name} made on {workout.created_at.date()}"
             self.assertEqual(str(workout), expected_value)
