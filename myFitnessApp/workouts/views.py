@@ -24,7 +24,7 @@ from myFitnessApp.workouts.utils.exercise_api import search_exercise
 )
 class SearchExercisesAPIView(APIView):
     def get(self, request):
-        query = self.request.GET.get('muscle', '')
+        query = request.query_params.get('muscle', '')
 
         if not query:
             return Response({
@@ -63,4 +63,4 @@ class WorkoutViewSet(ModelViewSet):
     queryset = WorkoutLog.objects.all()
 
     def perform_create(self, serializer):
-        return serializer.save(user=self.request.user)
+        serializer.save(user=self.request.user)

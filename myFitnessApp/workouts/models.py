@@ -36,6 +36,9 @@ class Exercise(models.Model):
         TRAPS = 'traps'
         TRICEPS = 'triceps'
         OTHER = 'other'
+    
+    class Meta:
+        ordering = ['name']
 
     NAME_MAX_LENGTH = 50
     MUSCLE_GROUP_MAX_LENGTH = max([len(x) for _, x in MuscleGroupChoices.choices])

@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 from myFitnessApp.utils.factories import ExerciseFactory, UserModelFactory
-from myFitnessApp.workouts.models import Exercise, WorkoutLog
+from myFitnessApp.workouts.models import WorkoutLog
 from myFitnessApp.workouts.serializers import WorkoutLogSerializer
 from django.contrib.auth import get_user_model
 
