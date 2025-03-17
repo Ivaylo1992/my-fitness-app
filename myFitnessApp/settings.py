@@ -85,8 +85,8 @@ REST_AUTH = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Your Project API",
-    "DESCRIPTION": "Your project description",
+    "TITLE": "Fitness App API",
+    "DESCRIPTION": "Fitness application made for everybody",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
