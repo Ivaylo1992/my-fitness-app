@@ -1,7 +1,7 @@
 class RequestHelperMixin:
     def authenticate(self):
         """Helper method to force user authentication"""
-        self.client.force_authentication(user=self.user)
+        self.client.force_authenticate(user=self.user)
     
     def send_request(self, method, url, data=None, authenticate=False):
         """
@@ -31,4 +31,4 @@ class RequestHelperMixin:
         try:
             return methods[method]
         except KeyError:
-            raise ValueError("Unsupported HTTP method provided.") 
+            raise ValueError("Unsupported HTTP method provided.")
